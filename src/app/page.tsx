@@ -2,20 +2,23 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState, useRef } from 'react';
-import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, SlidersHorizontal, ChevronDown, ChevronUp, Save } from 'lucide-react';
+import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, SlidersHorizontal, ChevronDown, ChevronUp, Save, RotateCcw, Star, History } from 'lucide-react';
+
+const FACTORY_DEFAULT_PERSONA = 'Never output raw JSON. Use professional corporate tone. Cite sources where possible.';
 
 export default function Chat() {
   const [localInput, setLocalInput] = useState('');
   const [mounted, setMounted] = useState(false);
   const [files, setFiles] = useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
-  const [customInstructions, setCustomInstructions] = useState('Never output raw JSON. Use professional corporate tone. Cite sources where possible.');
+  const [customInstructions, setCustomInstructions] = useState(FACTORY_DEFAULT_PERSONA);
   const [showPersona, setShowPersona] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { 
     messages, 
     append, 
+    setMessages,
     isLoading, 
     error 
   } = useChat({
@@ -27,7 +30,7 @@ export default function Chat() {
   useEffect(() => {
     setMounted(true);
     
-    // Load persisted instructions from localStorage
+    // Load persisted instructions (current session)
     const savedInstructions = localStorage.getItem('smartdocs_persona');
     if (savedInstructions) {
       setCustomInstructions(savedInstructions);
@@ -43,6 +46,22 @@ export default function Chat() {
       })
       .catch(err => console.error('Error fetching files:', err));
   }, []);
+
+  const loadDefaultPersona = () => {
+    const savedDefault = localStorage.getItem('smartdocs_default_persona');
+    setCustomInstructions(savedDefault || FACTORY_DEFAULT_PERSONA);
+  };
+
+  const saveAsDefaultPersona = () => {
+    localStorage.setItem('smartdocs_default_persona', customInstructions);
+    // Also save as current session
+    localStorage.setItem('smartdocs_persona', customInstructions);
+    alert('Persona saved as your new default.');
+  };
+
+  const clearChat = () => {
+    setMessages([]);
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -131,6 +150,16 @@ export default function Chat() {
         
         {/* 2. SIDEBAR (Brand Style + Tuning) */}
         <aside className="w-80 bg-[#192a3d] text-white hidden md:flex flex-col shadow-inner">
+          <div className="p-6 border-b border-white/5">
+            <button 
+              onClick={clearChat}
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#2872fa] hover:bg-[#1559ed] text-white text-xs font-black uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg shadow-black/20 active:scale-95"
+            >
+              <RotateCcw size={14} />
+              New Research Session
+            </button>
+          </div>
+
           <div className="flex-1 overflow-y-auto p-6 scrollbar-hide space-y-8">
             
             {/* KNOWLEDGE BASE SECTION */}
@@ -195,23 +224,41 @@ export default function Chat() {
                     Instructions sent to the AI alongside your documents to refine behavior.
                   </p>
                   <textarea 
-                    className="w-full bg-[#192a3d] border border-white/10 rounded-xl p-3 text-xs text-white/80 focus:border-[#2872fa] focus:outline-none min-h-[240px] resize-none leading-relaxed"
+                    className="w-full bg-[#192a3d] border border-white/10 rounded-xl p-3 text-xs text-white/80 focus:border-[#2872fa] focus:outline-none min-h-[240px] resize-none leading-relaxed caret-[#2872fa] selection:bg-[#2872fa] selection:text-white"
                     value={customInstructions}
                     onChange={(e) => setCustomInstructions(e.target.value)}
                     placeholder="e.g. Speak like an expert consultant..."
                   />
-                  <div className="flex justify-between items-center">
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <button 
+                      onClick={loadDefaultPersona}
+                      className="flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 text-white/70 rounded-lg text-[9px] font-bold transition-all border border-white/10"
+                    >
+                      <History size={12} />
+                      LOAD DEFAULT
+                    </button>
+                    <button 
+                      onClick={saveAsDefaultPersona}
+                      className="flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 text-white/70 rounded-lg text-[9px] font-bold transition-all border border-white/10"
+                    >
+                      <Star size={12} />
+                      SET AS DEFAULT
+                    </button>
+                  </div>
+
+                  <div className="flex justify-between items-center pt-2">
                     <span className="text-[8px] font-bold text-white/20 uppercase">Local Session Store</span>
                     <button 
                       onClick={() => {
                         localStorage.setItem('smartdocs_persona', customInstructions);
                         setShowPersona(false);
                       }}
-                      className="flex items-center gap-2 px-3 py-1.5 bg-[#2872fa] hover:bg-[#1559ed] text-white rounded-lg text-[10px] font-bold transition-colors"
-                      title="Save and Collapse"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#2872fa] hover:bg-[#1559ed] text-white rounded-lg text-[10px] font-black transition-colors shadow-lg shadow-[#2872fa]/20"
+                      title="Apply and Collapse"
                     >
                       <Save size={12} />
-                      SAVE
+                      APPLY & CLOSE
                     </button>
                   </div>
                 </div>
