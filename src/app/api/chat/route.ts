@@ -48,8 +48,13 @@ export async function POST(req: Request) {
     const basePrompt = `You are the Applied AI Labs Intelligence Agent. Your goal is to provide professional, executive-level insights based on the provided documents.`;
     
     const contextPrompt = context 
-      ? `\n\nINSTRUCTION: Use the following documents as your primary source of truth. If the answer is not in the documents, explicitly state that the official documentation does not cover the topic, and then provide helpful insights from your general knowledge to assist the user. \n\nDocuments:\n${context}`
-      : `\n\nNo specific documents were provided in the context, so please answer from your general knowledge.`;
+      ? `\n\nHIERARCHY OF TRUTH:
+1. PRIMARY SOURCE: Check the provided Documents below first. If the answer is found there, prioritize it and cite the document name.
+2. SECONDARY SOURCE: If the Documents do not contain the answer, you may use your general training data to provide helpful insights. However, you MUST explicitly state that the information is not in the official documentation.
+3. ZERO-HALLUCINATION POLICY: Never make up data, names, dates, or technical specifications. If you are not highly certain of a fact from either source, simply state: "I cannot locate that specific information."
+
+Documents:\n${context}`
+      : `\n\nYou have no specific documents in context. Answer from your general knowledge but adhere to a strict zero-hallucination policy. If you are not highly certain of a fact, state that you do not have that information.`;
 
     const tuningPrompt = customInstructions 
       ? `\n\nADDITIONAL SYSTEM INSTRUCTIONS (Follow these strictly):\n${customInstructions}`
