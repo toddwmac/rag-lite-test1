@@ -15,7 +15,7 @@ export async function GET() {
 
     // Simple non-streaming call to verify connectivity
     const { text } = await generateText({
-      model: anthropic('claude-3-haiku-20240307'),
+      model: anthropic('claude-3-haiku-20240307') as any,
       prompt: 'Reply with "Success" if you receive this.',
     });
 
