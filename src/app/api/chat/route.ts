@@ -6,19 +6,34 @@ import { getContext } from '@/lib/context';
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
-  const context = await getContext();
+  try {
+    const { messages } = await req.json();
+    const context = await getContext();
 
-  const systemPrompt = `You are a helpful assistant. Use the following documents to answer the user's question. If the answer is not in the documents, use your general knowledge but prioritize the documents.
+    const systemPrompt = context 
+      ? `You are a helpful assistant. Use the following documents to answer the user's question. If the answer is not in the documents, use your general knowledge but prioritize the documents.
 
 Documents:
-${context}`;
+${context}`
+      : `You are a helpful assistant. No specific documents were provided in the context, so please answer from your general knowledge.`;
 
-  const result = await streamText({
-    model: anthropic('claude-3-5-sonnet-20240620'),
-    messages,
-    system: systemPrompt,
-  });
+    const result = streamText({
+      model: anthropic('claude-3-5-sonnet-20241022') as any,
+      messages,
+      system: systemPrompt,
+    });
 
-  return result.toDataStreamResponse();
+    return result.toDataStreamResponse();
+  } catch (error: any) {
+    console.error('API ERROR:', error);
+    return new Response(
+      JSON.stringify({ 
+        error: error.message || 'Internal Server Error'
+      }), 
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 }

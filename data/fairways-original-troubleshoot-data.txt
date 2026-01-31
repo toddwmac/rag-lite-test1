@@ -1,0 +1,249 @@
+[
+  {
+    "id": "display-001",
+    "category": "Display",
+    "problem_title": "Game is frozen or showing on the wrong monitor",
+    "symptoms": [
+      "Game appears on wall monitor instead of projector",
+      "Game window stuck or frozen",
+      "Mouse appears on wrong screen"
+    ],
+    "root_cause": "TrackMan software display settings assigned to incorrect screen",
+    "steps_to_fix": [
+      "Exit the virtual round by closing the game window on the wall monitor or using the Windows key.",
+      "Return to TrackMan home screen.",
+      "Click player name (bottom-right) → Advanced Settings.",
+      "Select Extended Displays.",
+      "Ensure 'Projector' and 'TPS' are checked under Screen 1.",
+      "Ensure they are NOT checked under Screen 2.",
+      "Save settings."
+    ],
+    "warnings": [
+      "Do NOT change Windows display settings."
+    ],
+    "verification": [
+      "Start a round and confirm the game appears on the projector.",
+      "Wall monitor shows extended data only."
+    ],
+    "related_issues": ["display-002", "projector-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "wrong monitor", "frozen screen", "display issue", "projector", "wall monitor","original"
+    ]
+  },
+  {
+    "id": "connection-001",
+    "category": "TrackMan Connection",
+    "problem_title": "Simulator won't connect or is missing shot data",
+    "symptoms": [
+      "TrackMan logo not green",
+      "Shots not registering",
+      "Unit not found",
+      "Intermittent shot data"
+    ],
+    "root_cause": "TrackMan unit or software needs reboot",
+    "steps_to_fix": [
+      "Exit TrackMan software.",
+      "Open the TrackMan folder on desktop → TrackMan Admin.",
+      "Click Login.",
+      "Go to Administration → Reboot.",
+      "Confirm reboot.",
+      "Relaunch TrackMan.",
+      "Click TrackMan logo → AutoTarget."
+    ],
+    "warnings": [],
+    "verification": [
+      "Calibration screen appears.",
+      "AutoTarget grid displays.",
+      "Shots register normally."
+    ],
+    "related_issues": ["connection-002", "subscription-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "5 minutes",
+    "member_safe": true,
+    "keywords": [
+      "no shot data", "unit not connecting", "TrackMan offline", "missing shots","original"
+    ]
+  },
+  {
+    "id": "connection-002",
+    "category": "TrackMan Hardware",
+    "problem_title": "Hard restart of TrackMan unit",
+    "symptoms": [
+      "Software reboot did not fix connection",
+      "Unit unresponsive",
+      "Green light blinking or off"
+    ],
+    "root_cause": "TrackMan hardware requires physical power cycle",
+    "steps_to_fix": [
+      "Lift unit gently without pulling cables.",
+      "Push rear triangular leg down until click, then fold up to power off.",
+      "Wait for green light to turn off.",
+      "Extend rear leg again until click to power on.",
+      "Wait for green light to become solid.",
+      "Return unit to original position."
+    ],
+    "warnings": [
+      "Do not pull or disconnect cables.",
+      "Handle unit gently."
+    ],
+    "verification": [
+      "Green light solid.",
+      "TrackMan connects in software.",
+      "AutoTarget works."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "hard restart", "power cycle", "TrackMan reboot", "unit reset","original"
+    ]
+  },
+  {
+    "id": "tournament-001",
+    "category": "Account / Tournament",
+    "problem_title": "Private Fairway Members Tournament not visible",
+    "symptoms": [
+      "Tournament missing from list",
+      "Cannot join event",
+      "Tournament not loading"
+    ],
+    "root_cause": "Incorrect Windows login, unlinked TrackMan account, or unaccepted invite",
+    "steps_to_fix": [
+      "Confirm Windows login is !PFTour.",
+      "On TrackMan home screen, scan QR code or sign in manually.",
+      "Open TrackMan Golf app → Tournaments → My Tournaments and Invite tabs.",
+      "Accept the Private Fairway tournament invite.",
+      "If still missing, register at https://www.privatefairway.com/pftour."
+    ],
+    "warnings": [],
+    "verification": [
+      "Tournament appears in TrackMan list."
+    ],
+    "related_issues": ["tournament-002"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "tournament missing", "can't find event", "PFTour", "members tournament","original"
+    ]
+  },
+  {
+    "id": "subscription-001",
+    "category": "TrackMan Connection",
+    "problem_title": "Courses locked or subscription error",
+    "symptoms": [
+      "All courses locked",
+      "Subscription error message",
+      "Cannot start round"
+    ],
+    "root_cause": "TrackMan unit temporarily disconnected",
+    "steps_to_fix": [
+      "Click TrackMan logo on home screen.",
+      "Wait for unit search.",
+      "If unit connects, calibration screen appears.",
+      "Click AutoTarget.",
+      "Return to course selection."
+    ],
+    "warnings": [],
+    "verification": [
+      "Courses unlocked.",
+      "Subscription error disappears."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "courses locked", "subscription error", "locked courses", "TrackMan license","original"
+    ]
+  },
+  {
+    "id": "players-001",
+    "category": "Player Setup",
+    "problem_title": "Game won't start because a player needs a handicap",
+    "symptoms": [
+      "Start Game button greyed out",
+      "Player shows '-' instead of handicap"
+    ],
+    "root_cause": "TrackMan requires all players to have a handicap",
+    "steps_to_fix": [
+      "Identify player with '-' handicap.",
+      "Click Edit Player.",
+      "Select Handicap.",
+      "Assign a number.",
+      "Click Done.",
+      "Repeat for all players missing handicaps."
+    ],
+    "warnings": [],
+    "verification": [
+      "Start Game button becomes available."
+    ],
+    "related_issues": [],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "handicap missing", "start game disabled", "player setup","original"
+    ]
+  },
+  {
+    "id": "camera-001",
+    "category": "Cameras",
+    "problem_title": "Swing cameras won't activate",
+    "symptoms": [
+      "No swing video",
+      "Cameras offline",
+      "Camera feed not loading"
+    ],
+    "root_cause": "PC requires restart",
+    "steps_to_fix": [
+      "Click Windows icon → Power → Restart.",
+      "If frozen, press and hold PC tower power button to shut down.",
+      "Press power button again to restart.",
+      "Log in and reopen TrackMan."
+    ],
+    "warnings": [],
+    "verification": [
+      "Cameras activate on TrackMan home screen."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "camera offline", "no video", "swing camera","original"
+    ]
+  },
+  {
+    "id": "projector-001",
+    "category": "Display",
+    "problem_title": "Projector screen is blank",
+    "symptoms": [
+      "Big screen black",
+      "Projector not showing image",
+      "Small monitor works but projector does not"
+    ],
+    "root_cause": "Projector powered off or timed out",
+    "steps_to_fix": [
+      "Locate white Panasonic remote.",
+      "Point at projector.",
+      "Press red power button.",
+      "Wait for projector to turn on."
+    ],
+    "warnings": [],
+    "verification": [
+      "Projector displays Windows or TrackMan."
+    ],
+    "related_issues": ["display-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "30 seconds",
+    "member_safe": true,
+    "keywords": [
+      "projector off", "blank screen", "no picture", "projector power","original"
+    ]
+  }
+]

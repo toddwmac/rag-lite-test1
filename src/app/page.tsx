@@ -1,7 +1,7 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import { Send, Bot, User, FileText } from 'lucide-react';
+import { Send, Bot, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Chat() {
@@ -34,7 +34,7 @@ export default function Chat() {
                 <p>Ask anything about your documents in the /data folder.</p>
               </div>
             )}
-            {messages.map((m) => (
+            {messages.map((m: any) => (
               <div
                 key={m.id}
                 className={`flex ${
@@ -83,7 +83,7 @@ export default function Chat() {
               />
               <button
                 type="submit"
-                disabled={isLoading || !input.trim()}
+                disabled={isLoading || !input?.trim()}
                 className="absolute right-2 p-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
               >
                 <Send className="w-5 h-5" />
