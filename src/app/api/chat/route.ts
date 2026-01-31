@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     console.log('API: ANTHROPIC_API_KEY set:', !!process.env.ANTHROPIC_API_KEY);
     console.log('API: API_KEY prefix:', process.env.ANTHROPIC_API_KEY?.substring(0, 10) || 'NOT SET');
 
-    const { messages, selectedFiles } = await req.json();
+    const { messages, selectedFiles, customInstructions } = await req.json();
     console.log('API: Messages received:', messages?.length || 0);
     console.log('API: Selected files:', selectedFiles || 'All');
 
@@ -43,14 +43,19 @@ export async function POST(req: Request) {
     }
 
     const context = await getContext(selectedFiles);
-    console.log('API: Context loaded, length:', context?.length || 0);
+    
+    // Construct the dynamic system prompt
+    const basePrompt = `You are the Applied AI Labs Intelligence Agent. Your goal is to provide professional, executive-level insights based on the provided documents.`;
+    
+    const contextPrompt = context 
+      ? `\n\nUse the following documents to answer the user's question. If the answer is not in the documents, use your general knowledge but prioritize the documents.\n\nDocuments:\n${context}`
+      : `\n\nNo specific documents were provided in the context, so please answer from your general knowledge.`;
 
-    const systemPrompt = context
-      ? `You are a helpful assistant. Use the following documents to answer the user's question. If the answer is not in the documents, use your general knowledge but prioritize the documents.
+    const tuningPrompt = customInstructions 
+      ? `\n\nADDITIONAL SYSTEM INSTRUCTIONS (Follow these strictly):\n${customInstructions}`
+      : `\n\nFormatting Rule: Never output raw JSON or technical metadata blocks unless specifically asked.`;
 
-Documents:
-${context}`
-      : `You are a helpful assistant. No specific documents were provided in the context, so please answer from your general knowledge.`;
+    const systemPrompt = `${basePrompt}${contextPrompt}${tuningPrompt}`;
 
     console.log('API: Calling streamText with model claude-3-haiku...');
 

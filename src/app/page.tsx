@@ -2,13 +2,15 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState, useRef } from 'react';
-import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, Bot } from 'lucide-react';
+import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, SlidersHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Chat() {
   const [localInput, setLocalInput] = useState('');
   const [mounted, setMounted] = useState(false);
   const [files, setFiles] = useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [customInstructions, setCustomInstructions] = useState('Never output raw JSON. Use professional corporate tone. Cite sources where possible.');
+  const [showPersona, setShowPersona] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { 
@@ -67,7 +69,10 @@ export default function Chat() {
         content: text, 
         role: 'user' 
       }, {
-        body: { selectedFiles }
+        body: { 
+          selectedFiles,
+          customInstructions 
+        }
       });
       setLocalInput('');
     } catch (err) {
@@ -83,14 +88,21 @@ export default function Chat() {
       {/* 1. CORPORATE HEADER */}
       <header className="h-16 bg-[#192a3d] flex items-center justify-between px-6 shadow-md z-10">
         <div className="flex items-center gap-4">
-          <img 
-            src="https://centerforappliedai.com/wp-content/uploads/2025/03/8e2adab0e3f168217b0338d68bba5992.png" 
-            alt="Applied AI Labs" 
-            className="h-[50px] w-auto object-contain rounded-lg"
-          />
+          <a 
+            href="https://www.CenterForAppliedai.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src="https://centerforappliedai.com/wp-content/uploads/2025/03/8e2adab0e3f168217b0338d68bba5992.png" 
+              alt="Applied AI Labs" 
+              className="h-[50px] w-auto object-contain rounded-md"
+            />
+          </a>
           <div className="h-6 w-[1px] bg-white/20 hidden md:block" />
           <h1 className="text-white font-montserrat font-semibold tracking-wide text-sm md:text-base">
-            SmartDocs <span className="text-[#2872fa] font-black text-xs ml-1 opacity-80 uppercase">v1.0</span>
+            SmartDocs <span className="text-[#2872fa] font-black text-xs ml-1 opacity-80 uppercase tracking-tighter">Live Tuning</span>
           </h1>
         </div>
         
@@ -110,48 +122,83 @@ export default function Chat() {
 
       <div className="flex flex-1 overflow-hidden">
         
-        {/* 2. SIDEBAR (Dark Brand Style) */}
-        <aside className="w-72 bg-[#192a3d] text-white hidden md:flex flex-col shadow-inner">
-          <div className="flex-1 overflow-y-auto p-6 scrollbar-hide">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] flex items-center gap-2">
-                <FileText size={12} className="text-[#2872fa]" /> Knowledge Base
-              </h3>
-              <button 
-                onClick={toggleAll}
-                className="text-[10px] font-bold text-[#2872fa] hover:text-[#1559ed] transition-colors uppercase"
-              >
-                {selectedFiles.length === files.length ? 'Clear' : 'Select All'}
-              </button>
-            </div>
+        {/* 2. SIDEBAR (Brand Style + Tuning) */}
+        <aside className="w-80 bg-[#192a3d] text-white hidden md:flex flex-col shadow-inner">
+          <div className="flex-1 overflow-y-auto p-6 scrollbar-hide space-y-8">
+            
+            {/* KNOWLEDGE BASE SECTION */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] flex items-center gap-2">
+                  <FileText size={12} className="text-[#2872fa]" /> Knowledge Base
+                </h3>
+                <button 
+                  onClick={toggleAll}
+                  className="text-[10px] font-bold text-[#2872fa] hover:text-[#1559ed] transition-colors uppercase"
+                >
+                  {selectedFiles.length === files.length ? 'Clear' : 'Select All'}
+                </button>
+              </div>
 
-            <div className="space-y-2">
-              {files.length === 0 ? (
-                <p className="text-xs text-white/30 italic px-2">No documents discovered</p>
-              ) : (
-                files.map(file => {
-                  const isSelected = selectedFiles.includes(file);
-                  return (
-                    <button 
-                      key={file} 
-                      onClick={() => toggleFile(file)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 text-xs text-left rounded-xl transition-all border ${
-                        isSelected 
-                          ? 'bg-[#2872fa]/10 border-[#2872fa]/30 text-white font-semibold' 
-                          : 'bg-transparent border-transparent text-white/50 hover:bg-white/5'
-                      }`}
-                    >
-                      {isSelected ? (
-                        <CheckCircle2 size={14} className="text-[#2872fa] flex-shrink-0" />
-                      ) : (
-                        <Circle size={14} className="text-white/10 flex-shrink-0" />
-                      )}
-                      <span className="truncate" title={file}>{file}</span>
-                    </button>
-                  );
-                })
+              <div className="space-y-2">
+                {files.length === 0 ? (
+                  <p className="text-xs text-white/30 italic px-2">No documents discovered</p>
+                ) : (
+                  files.map(file => {
+                    const isSelected = selectedFiles.includes(file);
+                    return (
+                      <button 
+                        key={file} 
+                        onClick={() => toggleFile(file)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-xs text-left rounded-xl transition-all border ${
+                          isSelected 
+                            ? 'bg-[#2872fa]/10 border-[#2872fa]/30 text-white font-semibold' 
+                            : 'bg-transparent border-transparent text-white/50 hover:bg-white/5'
+                        }`}
+                      >
+                        {isSelected ? (
+                          <CheckCircle2 size={14} className="text-[#2872fa] flex-shrink-0" />
+                        ) : (
+                          <Circle size={14} className="text-white/10 flex-shrink-0" />
+                        )}
+                        <span className="truncate" title={file}>{file}</span>
+                      </button>
+                    );
+                  })
+                )}
+              </div>
+            </section>
+
+            {/* LIVE TUNING SECTION */}
+            <section className="bg-black/20 rounded-2xl p-4 border border-white/5">
+              <button 
+                onClick={() => setShowPersona(!showPersona)}
+                className="w-full flex items-center justify-between text-[10px] font-black text-[#2872fa] uppercase tracking-[0.2em]"
+              >
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal size={12} />
+                  Persona Tuning
+                </div>
+                {showPersona ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+              </button>
+              
+              {showPersona && (
+                <div className="mt-4 space-y-3 animate-in slide-in-from-top-2 duration-300">
+                  <p className="text-[10px] text-white/40 leading-relaxed italic">
+                    Instructions sent to the AI alongside your documents to refine behavior.
+                  </p>
+                  <textarea 
+                    className="w-full bg-[#192a3d] border border-white/10 rounded-xl p-3 text-xs text-white/80 focus:border-[#2872fa] focus:outline-none min-h-[120px] resize-none leading-relaxed"
+                    value={customInstructions}
+                    onChange={(e) => setCustomInstructions(e.target.value)}
+                    placeholder="e.g. Speak like an expert consultant..."
+                  />
+                  <div className="flex justify-end">
+                    <span className="text-[8px] font-bold text-white/20 uppercase">Local Session Store</span>
+                  </div>
+                </div>
               )}
-            </div>
+            </section>
           </div>
           
           <div className="p-6 bg-black/20 border-t border-white/5 space-y-3">
@@ -202,7 +249,8 @@ export default function Chat() {
                         {m.role === 'user' ? <User size={18} /> : (
                           <img 
                             src="https://centerforappliedai.com/wp-content/uploads/2025/03/8e2adab0e3f168217b0338d68bba5992.png" 
-                            className="w-6 h-auto object-contain opacity-90" 
+                            className="w-5 h-auto brightness-0" 
+                            style={{ filter: 'invert(32%) sepia(91%) saturate(3042%) hue-rotate(213deg) brightness(101%) contrast(97%)' }} 
                             alt="AI"
                           />
                         )}
@@ -243,7 +291,7 @@ export default function Chat() {
               
               {error && (
                 <div className="max-w-md mx-auto mb-12 p-5 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-4 text-red-800 text-xs font-semibold shadow-sm">
-                  <div className="bg-red-500 text-white p-1.5 rounded-full"><Bot size={14} /></div>
+                  <div className="bg-red-500 text-white p-1.5 rounded-full border border-red-600"><SlidersHorizontal size={14} /></div>
                   <div className="space-y-0.5">
                     <p className="uppercase tracking-tight opacity-50 text-[10px]">Critical Stream Error</p>
                     <p>{error.message}</p>
