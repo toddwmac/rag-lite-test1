@@ -86,7 +86,7 @@ export default function Chat() {
           <img 
             src="https://centerforappliedai.com/wp-content/uploads/2025/03/8e2adab0e3f168217b0338d68bba5992.png" 
             alt="Applied AI Labs" 
-            className="h-10 w-auto object-contain"
+            className="h-[50px] w-auto object-contain rounded-lg"
           />
           <div className="h-6 w-[1px] bg-white/20 hidden md:block" />
           <h1 className="text-white font-montserrat font-semibold tracking-wide text-sm md:text-base">
