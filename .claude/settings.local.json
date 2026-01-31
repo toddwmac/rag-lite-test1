@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(where npm)",
+      "Bash(cmd:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run dev)",
+      "Bash(npm view:*)",
+      "WebSearch"
+    ]
+  }
+}
