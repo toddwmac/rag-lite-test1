@@ -26,6 +26,13 @@ export default function Chat() {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Load persisted instructions from localStorage
+    const savedInstructions = localStorage.getItem('smartdocs_persona');
+    if (savedInstructions) {
+      setCustomInstructions(savedInstructions);
+    }
+
     fetch('/api/files')
       .then(res => res.json())
       .then(data => {
@@ -196,7 +203,10 @@ export default function Chat() {
                   <div className="flex justify-between items-center">
                     <span className="text-[8px] font-bold text-white/20 uppercase">Local Session Store</span>
                     <button 
-                      onClick={() => setShowPersona(false)}
+                      onClick={() => {
+                        localStorage.setItem('smartdocs_persona', customInstructions);
+                        setShowPersona(false);
+                      }}
                       className="flex items-center gap-2 px-3 py-1.5 bg-[#2872fa] hover:bg-[#1559ed] text-white rounded-lg text-[10px] font-bold transition-colors"
                       title="Save and Collapse"
                     >

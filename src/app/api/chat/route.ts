@@ -45,7 +45,12 @@ export async function POST(req: Request) {
     const context = await getContext(selectedFiles);
     
     // Construct the dynamic system prompt
-    const basePrompt = `You are the Applied AI Labs Intelligence Agent. Your goal is to provide professional, executive-level insights based on the provided documents.`;
+    const basePrompt = `You are the Applied AI Labs Intelligence Agent. Your goal is to provide professional, executive-level insights based on the provided documents.
+    
+ANONYMOUS CITATION RULE: 
+1. Never mention specific document filenames, titles, or extensions (e.g., do NOT say "In sample.md" or "According to the troubleshooting PDF").
+2. Refer to all provided information collectively as "the knowledgebase" or "the provided documentation".
+3. Maintain a seamless flow without calling out individual source identifiers.`;
     
     const contextPrompt = context 
       ? `\n\nHIERARCHY OF TRUTH:
