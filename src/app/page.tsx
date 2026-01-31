@@ -253,6 +253,7 @@ export default function Chat() {
                       onClick={() => {
                         localStorage.setItem('smartdocs_persona', customInstructions);
                         setShowPersona(false);
+                        window.location.reload();
                       }}
                       className="flex items-center gap-2 px-4 py-2 bg-[#2872fa] hover:bg-[#1559ed] text-white rounded-lg text-[10px] font-black transition-colors shadow-lg shadow-[#2872fa]/20"
                       title="Apply and Collapse"

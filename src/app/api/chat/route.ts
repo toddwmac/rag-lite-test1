@@ -50,7 +50,12 @@ export async function POST(req: Request) {
 ANONYMOUS CITATION RULE: 
 1. Never mention specific document filenames, titles, or extensions (e.g., do NOT say "In sample.md" or "According to the troubleshooting PDF").
 2. Refer to all provided information collectively as "the knowledgebase" or "the provided documentation".
-3. Maintain a seamless flow without calling out individual source identifiers.`;
+3. Maintain a seamless flow without calling out individual source identifiers.
+
+STRICT RESPONSE RULE:
+1. NO META-TALK: Never describe your tone, voice, or persona (e.g., do NOT say "*in a friendly tone*" or "As an AI assistant...").
+2. Direct Action: Start your response immediately with the information requested.
+3. No Roleplay: Avoid using asterisks or italics to describe your internal state or delivery style.`;
     
     const contextPrompt = context 
       ? `\n\nHIERARCHY OF TRUTH:
