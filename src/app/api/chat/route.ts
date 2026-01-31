@@ -11,8 +11,9 @@ export async function POST(req: Request) {
     console.log('API: ANTHROPIC_API_KEY set:', !!process.env.ANTHROPIC_API_KEY);
     console.log('API: API_KEY prefix:', process.env.ANTHROPIC_API_KEY?.substring(0, 10) || 'NOT SET');
 
-    const { messages } = await req.json();
+    const { messages, selectedFiles } = await req.json();
     console.log('API: Messages received:', messages?.length || 0);
+    console.log('API: Selected files:', selectedFiles || 'All');
 
     // Input validation
     const MAX_INPUT_LENGTH = 10000;
@@ -41,7 +42,7 @@ export async function POST(req: Request) {
       }
     }
 
-    const context = await getContext();
+    const context = await getContext(selectedFiles);
     console.log('API: Context loaded, length:', context?.length || 0);
 
     const systemPrompt = context

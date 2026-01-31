@@ -2,12 +2,13 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState, useRef } from 'react';
-import { Send, Bot, User, FileText, Loader2, Sparkles, Sidebar as SidebarIcon } from 'lucide-react';
+import { Send, Bot, User, FileText, Loader2, Sparkles, CheckCircle2, Circle } from 'lucide-react';
 
 export default function Chat() {
   const [localInput, setLocalInput] = useState('');
   const [mounted, setMounted] = useState(false);
   const [files, setFiles] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { 
@@ -23,11 +24,14 @@ export default function Chat() {
 
   useEffect(() => {
     setMounted(true);
-    // Fetch file list for the sidebar
     fetch('/api/files')
       .then(res => res.json())
       .then(data => {
-        if (data.files) setFiles(data.files);
+        if (data.files) {
+          setFiles(data.files);
+          // Default to all files selected initially
+          setSelectedFiles(data.files);
+        }
       })
       .catch(err => console.error('Error fetching files:', err));
   }, []);
@@ -38,13 +42,35 @@ export default function Chat() {
     }
   }, [messages, isLoading]);
 
+  const toggleFile = (fileName: string) => {
+    setSelectedFiles(prev => 
+      prev.includes(fileName) 
+        ? prev.filter(f => f !== fileName) 
+        : [...prev, fileName]
+    );
+  };
+
+  const toggleAll = () => {
+    if (selectedFiles.length === files.length) {
+      setSelectedFiles([]);
+    } else {
+      setSelectedFiles(files);
+    }
+  };
+
   const onFormSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const text = localInput.trim();
     if (!text || isLoading) return;
 
     try {
-      await append({ content: text, role: 'user' });
+      // Send selectedFiles along with the message
+      await append({ 
+        content: text, 
+        role: 'user' 
+      }, {
+        body: { selectedFiles }
+      });
       setLocalInput('');
     } catch (err) {
       console.error('Submission failed', err);
@@ -56,8 +82,8 @@ export default function Chat() {
   return (
     <div className="flex h-screen bg-[#fcfcfd] text-slate-900 font-sans selection:bg-blue-100">
       
-      {/* 1. SIDEBAR (Fixed Knowledge Base) */}
-      <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col shadow-sm">
+      {/* 1. SIDEBAR (Active Knowledge Base) */}
+      <aside className="w-72 bg-white border-r border-slate-200 hidden md:flex flex-col shadow-sm">
         <div className="p-5 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-slate-800 tracking-tight">
             <div className="bg-blue-600 p-1 rounded text-white"><Bot size={16} /></div>
@@ -66,30 +92,63 @@ export default function Chat() {
         </div>
         
         <div className="flex-1 overflow-y-auto p-4">
-          <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <FileText size={12} /> Documents
-          </h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+              <FileText size={12} /> Knowledge Base
+            </h3>
+            <button 
+              onClick={toggleAll}
+              className="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase"
+            >
+              {selectedFiles.length === files.length ? 'Clear' : 'Select All'}
+            </button>
+          </div>
+
           <div className="space-y-1">
             {files.length === 0 ? (
               <p className="text-xs text-slate-400 italic px-2">No documents found</p>
             ) : (
-              files.map(file => (
-                <div key={file} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-colors cursor-default truncate" title={file}>
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
-                  {file}
-                </div>
-              ))
+              files.map(file => {
+                const isSelected = selectedFiles.includes(file);
+                return (
+                  <button 
+                    key={file} 
+                    onClick={() => toggleFile(file)}
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 text-xs text-left rounded-xl transition-all border ${
+                      isSelected 
+                        ? 'bg-blue-50 border-blue-100 text-blue-700 font-medium' 
+                        : 'bg-white border-transparent text-slate-500 hover:bg-slate-50'
+                    }`}
+                  >
+                    {isSelected ? (
+                      <CheckCircle2 size={14} className="text-blue-500 flex-shrink-0" />
+                    ) : (
+                      <Circle size={14} className="text-slate-200 flex-shrink-0" />
+                    )}
+                    <span className="truncate" title={file}>{file}</span>
+                  </button>
+                );
+              })
             )}
           </div>
         </div>
         
-        <div className="p-4 bg-slate-50 border-t border-slate-100">
-          <div className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">Connected: Claude 3 Haiku</div>
+        <div className="p-4 bg-slate-50 border-t border-slate-100 space-y-2">
+          <div className="flex justify-between text-[10px] font-bold">
+            <span className="text-slate-400">Sources Active</span>
+            <span className="text-blue-600">{selectedFiles.length} / {files.length}</span>
+          </div>
+          <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+            <div 
+              className="bg-blue-500 h-full transition-all duration-500" 
+              style={{ width: `${(selectedFiles.length / files.length) * 100}%` }}
+            />
+          </div>
         </div>
       </aside>
 
       {/* 2. MAIN CONTENT AREA */}
-      <main className="flex-1 flex flex-col relative min-w-0">
+      <main className="flex-1 flex flex-col min-w-0">
         
         {/* TOP OUTPUT ZONE */}
         <div 
@@ -103,8 +162,8 @@ export default function Chat() {
                   <Sparkles size={32} />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-slate-800">Research Workspace</h2>
-                  <p className="text-sm text-slate-500 max-w-sm mt-1">Ask questions about your local documents. Claude will analyze the context and provide insights.</p>
+                  <h2 className="text-xl font-bold text-slate-800">Workspace Ready</h2>
+                  <p className="text-sm text-slate-500 max-w-sm mt-1">Select documents from the sidebar to focus Claude's attention. Ask a question to begin analysis.</p>
                 </div>
               </div>
             ) : (
@@ -170,8 +229,9 @@ export default function Chat() {
                 autoFocus
                 className="w-full pl-6 pr-14 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 outline-none transition-all text-[15px] placeholder:text-slate-400"
                 value={localInput}
-                placeholder="Ask a question about your documents..."
+                placeholder={selectedFiles.length === 0 ? "Select a document to begin..." : "Ask a question about your documents..."}
                 onChange={(e) => setLocalInput(e.target.value)}
+                disabled={selectedFiles.length === 0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -181,7 +241,7 @@ export default function Chat() {
               />
               <button
                 type="submit"
-                disabled={isLoading || !localInput.trim()}
+                disabled={isLoading || !localInput.trim() || selectedFiles.length === 0}
                 className="absolute right-3 p-2.5 bg-blue-600 text-white rounded-xl disabled:bg-slate-200 disabled:text-slate-400 hover:bg-blue-700 transition-all shadow-md active:scale-95"
               >
                 {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
@@ -190,7 +250,9 @@ export default function Chat() {
             <div className="flex justify-center mt-3 text-[10px] font-bold text-slate-300 uppercase tracking-widest gap-4">
                <span>RAG-Lite Protocol</span>
                <span>•</span>
-               <span>Local Data Verified</span>
+               <span className={selectedFiles.length > 0 ? 'text-green-500' : 'text-slate-300'}>
+                 {selectedFiles.length} Source{selectedFiles.length !== 1 ? 's' : ''} Ready
+               </span>
             </div>
           </div>
         </div>

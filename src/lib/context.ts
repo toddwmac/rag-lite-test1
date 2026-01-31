@@ -13,17 +13,22 @@ export async function getFiles() {
   return files.filter(file => file.endsWith('.md') || file.endsWith('.txt') || file.endsWith('.pdf'));
 }
 
-export async function getContext() {
+export async function getContext(selectedFiles?: string[]) {
   const dataDir = path.join(process.cwd(), 'data');
   
   if (!existsSync(dataDir)) {
     return '';
   }
 
-  const files = await fs.readdir(dataDir);
+  const allFiles = await fs.readdir(dataDir);
+  // If selectedFiles is provided, filter the directory list; otherwise use all valid files
+  const filesToRead = selectedFiles && selectedFiles.length > 0 
+    ? allFiles.filter(f => selectedFiles.includes(f))
+    : allFiles;
+
   let context = '';
 
-  for (const file of files) {
+  for (const file of filesToRead) {
     const filePath = path.join(dataDir, file);
     
     try {
