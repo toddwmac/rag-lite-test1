@@ -86,7 +86,7 @@ export default function Chat() {
           <img 
             src="https://centerforappliedai.com/wp-content/uploads/2025/03/8e2adab0e3f168217b0338d68bba5992.png" 
             alt="Applied AI Labs" 
-            className="h-8 w-auto brightness-0 invert"
+            className="h-10 w-auto object-contain"
           />
           <div className="h-6 w-[1px] bg-white/20 hidden md:block" />
           <h1 className="text-white font-montserrat font-semibold tracking-wide text-sm md:text-base">
@@ -202,8 +202,7 @@ export default function Chat() {
                         {m.role === 'user' ? <User size={18} /> : (
                           <img 
                             src="https://centerforappliedai.com/wp-content/uploads/2025/03/8e2adab0e3f168217b0338d68bba5992.png" 
-                            className="w-5 h-auto brightness-0" 
-                            style={{ filter: 'invert(32%) sepia(91%) saturate(3042%) hue-rotate(213deg) brightness(101%) contrast(97%)' }} 
+                            className="w-6 h-auto object-contain opacity-90" 
                             alt="AI"
                           />
                         )}
