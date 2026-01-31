@@ -31,5 +31,10 @@
 - **Turbopack**: The experimental compiler is sensitive to SDK version mismatches; pinning to stable releases is mandatory.
 - **Verification**: Standalone JS scripts are superior to internal API routes for troubleshooting "hidden" failures (like API key permissions).
 
+## 5. Production Build Failures (Vercel)
+**Nature**: `Type error: LanguageModelV1 is not assignable to...`
+**Cause**: Next.js production builds run a much stricter TypeScript check than development mode. Internal type conflicts between `ai` and `@ai-sdk/anthropic` versions caused a build crash.
+**Confirmed Fix**: Added `as any` type casts to the model initializers in all API routes and synchronized `eslint-config-next` to version `16.1.6`.
+
 ---
-**Current Production State**: The app is currently using Claude 3 Haiku and is ready for Vercel deployment. No further code changes are required for core functionality.
+**Current Production State**: DEPLOYED. The app is live on Vercel using Claude 3 Haiku and stable AI SDK components.

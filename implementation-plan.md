@@ -14,18 +14,18 @@
 - [x] **API Route:** `src/app/api/chat/route.ts` handles streaming and Haiku model logic.
 
 ### Phase 2: User Interface
-- [x] **"Command Centre" Layout:** Redesigned for high accessibility and no overlap with dev tools.
-- [x] **Resilient Submission:** Input state handled locally to bypass experimental hook issues.
-- [x] **Brutalist Theme:** High-contrast B&W design for professional appearance.
+- [x] **"Notebook" Layout:** Transitioned from brutalist to a professional, wide-screen Inter-based design.
+- [x] **Active Knowledge Base:** Implemented interactive document selection and filtering.
 
-### Phase 3: Stabilization
+### Phase 3: Stabilization & Deployment
 - [x] **SDK Downgrade:** Successfully reverted from experimental 6.x to stable 4.x.
-- [x] **Tailwind 4 Fix:** Corrected `@import` syntax for proper rendering.
+- [x] **Build Optimization:** Resolved TypeScript and ESLint conflicts for Vercel production.
+- [x] **Vercel Deployment:** Application is live and successfully processing RAG queries.
 
-## 3. Deployment Checklist
-1. Connect GitHub repository to Vercel.
-2. Inject `ANTHROPIC_API_KEY` into Environment Variables.
-3. Deploy to production.
+## 3. Final Production Settings
+1. GitHub connected via automated CI/CD.
+2. `ANTHROPIC_API_KEY` configured in Vercel Secret Management.
+3. Model pinned to `claude-3-haiku-20240307`.
 
 ---
 *Verified and Finalized: 2026-01-31*
