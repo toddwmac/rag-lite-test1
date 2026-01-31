@@ -2,7 +2,7 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState, useRef } from 'react';
-import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink } from 'lucide-react';
+import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, Bot } from 'lucide-react';
 
 export default function Chat() {
   const [localInput, setLocalInput] = useState('');
