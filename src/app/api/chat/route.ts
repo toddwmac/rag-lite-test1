@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     const basePrompt = `You are the Applied AI Labs Intelligence Agent. Your goal is to provide professional, executive-level insights based on the provided documents.`;
     
     const contextPrompt = context 
-      ? `\n\nUse the following documents to answer the user's question. If the answer is not in the documents, use your general knowledge but prioritize the documents.\n\nDocuments:\n${context}`
+      ? `\n\nINSTRUCTION: Use the following documents as your primary source of truth. If the answer is not in the documents, explicitly state that the official documentation does not cover the topic, and then provide helpful insights from your general knowledge to assist the user. \n\nDocuments:\n${context}`
       : `\n\nNo specific documents were provided in the context, so please answer from your general knowledge.`;
 
     const tuningPrompt = customInstructions 

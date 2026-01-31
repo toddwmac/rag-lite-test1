@@ -2,7 +2,7 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState, useRef } from 'react';
-import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, SlidersHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
+import { Send, User, FileText, Loader2, Sparkles, CheckCircle2, Circle, Globe, ExternalLink, SlidersHorizontal, ChevronDown, ChevronUp, Save } from 'lucide-react';
 
 export default function Chat() {
   const [localInput, setLocalInput] = useState('');
@@ -188,13 +188,21 @@ export default function Chat() {
                     Instructions sent to the AI alongside your documents to refine behavior.
                   </p>
                   <textarea 
-                    className="w-full bg-[#192a3d] border border-white/10 rounded-xl p-3 text-xs text-white/80 focus:border-[#2872fa] focus:outline-none min-h-[120px] resize-none leading-relaxed"
+                    className="w-full bg-[#192a3d] border border-white/10 rounded-xl p-3 text-xs text-white/80 focus:border-[#2872fa] focus:outline-none min-h-[240px] resize-none leading-relaxed"
                     value={customInstructions}
                     onChange={(e) => setCustomInstructions(e.target.value)}
                     placeholder="e.g. Speak like an expert consultant..."
                   />
-                  <div className="flex justify-end">
+                  <div className="flex justify-between items-center">
                     <span className="text-[8px] font-bold text-white/20 uppercase">Local Session Store</span>
+                    <button 
+                      onClick={() => setShowPersona(false)}
+                      className="flex items-center gap-2 px-3 py-1.5 bg-[#2872fa] hover:bg-[#1559ed] text-white rounded-lg text-[10px] font-bold transition-colors"
+                      title="Save and Collapse"
+                    >
+                      <Save size={12} />
+                      SAVE
+                    </button>
                   </div>
                 </div>
               )}
