@@ -1,0 +1,1539 @@
+[
+  {
+    "id": "display-001",
+    "category": "Display",
+    "problem_title": "Game is frozen or showing on the wrong monitor",
+    "symptoms": [
+      "Game appears on wall monitor instead of projector",
+      "Game window stuck or frozen",
+      "Mouse appears on wrong screen"
+    ],
+    "root_cause": "TrackMan software display settings assigned to incorrect screen",
+    "steps_to_fix": [
+      "Exit the virtual round by closing the game window on the wall monitor or using the Windows key.",
+      "Return to TrackMan home screen.",
+      "Click player name (bottom-right) → Advanced Settings.",
+      "Select Extended Displays.",
+      "Ensure 'Projector' and 'TPS' are checked under Screen 1.",
+      "Ensure they are NOT checked under Screen 2.",
+      "Save settings."
+    ],
+    "warnings": [
+      "Do NOT change Windows display settings."
+    ],
+    "verification": [
+      "Start a round and confirm the game appears on the projector.",
+      "Wall monitor shows extended data only."
+    ],
+    "related_issues": ["display-002", "projector-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "wrong monitor",
+      "frozen screen",
+      "display issue",
+      "projector",
+      "wall monitor"
+    ]
+  },
+  {
+    "id": "connection-001",
+    "category": "TrackMan Connection",
+    "problem_title": "Simulator won't connect or is missing shot data",
+    "symptoms": [
+      "TrackMan logo not green",
+      "Shots not registering",
+      "Unit not found",
+      "Intermittent shot data"
+    ],
+    "root_cause": "TrackMan unit or software needs reboot",
+    "steps_to_fix": [
+      "Exit TrackMan software.",
+      "Open the TrackMan folder on desktop → TrackMan Admin.",
+      "Click Login.",
+      "Go to Administration → Reboot.",
+      "Confirm reboot.",
+      "Relaunch TrackMan.",
+      "Click TrackMan logo → AutoTarget."
+    ],
+    "warnings": [],
+    "verification": [
+      "Calibration screen appears.",
+      "AutoTarget grid displays.",
+      "Shots register normally."
+    ],
+    "related_issues": ["connection-002", "subscription-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "5 minutes",
+    "member_safe": true,
+    "keywords": [
+      "no shot data",
+      "unit not connecting",
+      "TrackMan offline",
+      "missing shots"
+    ]
+  },
+  {
+    "id": "connection-002",
+    "category": "TrackMan Hardware",
+    "problem_title": "Hard restart of TrackMan unit",
+    "symptoms": [
+      "Software reboot did not fix connection",
+      "Unit unresponsive",
+      "Green light blinking or off"
+    ],
+    "root_cause": "TrackMan hardware requires physical power cycle",
+    "steps_to_fix": [
+      "Lift unit gently without pulling cables.",
+      "Push rear triangular leg down until click, then fold up to power off.",
+      "Wait for green light to turn off.",
+      "Extend rear leg again until click to power on.",
+      "Wait for green light to become solid.",
+      "Return unit to original position."
+    ],
+    "warnings": [
+      "Do not pull or disconnect cables.",
+      "Handle unit gently."
+    ],
+    "verification": [
+      "Green light solid.",
+      "TrackMan connects in software.",
+      "AutoTarget works."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "hard restart",
+      "power cycle",
+      "TrackMan reboot",
+      "unit reset"
+    ]
+  },
+  {
+    "id": "tournament-001",
+    "category": "Account / Tournament",
+    "problem_title": "Private Fairway Members Tournament not visible",
+    "symptoms": [
+      "Tournament missing from list",
+      "Cannot join event",
+      "Tournament not loading"
+    ],
+    "root_cause": "Incorrect Windows login, unlinked TrackMan account, or unaccepted invite",
+    "steps_to_fix": [
+      "Confirm Windows login is !PFTour.",
+      "On TrackMan home screen, scan QR code or sign in manually.",
+      "Open TrackMan Golf app → Tournaments → My Tournaments and Invite tabs.",
+      "Accept the Private Fairway tournament invite.",
+      "If still missing, register at https://www.privatefairway.com/pftour."
+    ],
+    "warnings": [],
+    "verification": [
+      "Tournament appears in TrackMan list."
+    ],
+    "related_issues": ["tournament-002"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "tournament missing",
+      "can't find event",
+      "PFTour",
+      "members tournament"
+    ]
+  },
+  {
+    "id": "subscription-001",
+    "category": "TrackMan Connection",
+    "problem_title": "Courses locked or subscription error",
+    "symptoms": [
+      "All courses locked",
+      "Subscription error message",
+      "Cannot start round"
+    ],
+    "root_cause": "TrackMan unit temporarily disconnected",
+    "steps_to_fix": [
+      "Click TrackMan logo on home screen.",
+      "Wait for unit search.",
+      "If unit connects, calibration screen appears.",
+      "Click AutoTarget.",
+      "Return to course selection."
+    ],
+    "warnings": [],
+    "verification": [
+      "Courses unlocked.",
+      "Subscription error disappears."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "courses locked",
+      "subscription error",
+      "locked courses",
+      "TrackMan license"
+    ]
+  },
+  {
+    "id": "players-001",
+    "category": "Player Setup",
+    "problem_title": "Game won't start because a player needs a handicap",
+    "symptoms": [
+      "Start Game button greyed out",
+      "Player shows '-' instead of handicap"
+    ],
+    "root_cause": "TrackMan requires all players to have a handicap",
+    "steps_to_fix": [
+      "Identify player with '-' handicap.",
+      "Click Edit Player.",
+      "Select Handicap.",
+      "Assign a number.",
+      "Click Done.",
+      "Repeat for all players missing handicaps."
+    ],
+    "warnings": [],
+    "verification": [
+      "Start Game button becomes available."
+    ],
+    "related_issues": [],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "handicap missing",
+      "start game disabled",
+      "player setup"
+    ]
+  },
+  {
+    "id": "camera-001",
+    "category": "Cameras",
+    "problem_title": "Swing cameras won't activate",
+    "symptoms": [
+      "No swing video",
+      "Cameras offline",
+      "Camera feed not loading"
+    ],
+    "root_cause": "PC requires restart",
+    "steps_to_fix": [
+      "Click Windows icon → Power → Restart.",
+      "If frozen, press and hold PC tower power button to shut down.",
+      "Press power button again to restart.",
+      "Log in and reopen TrackMan."
+    ],
+    "warnings": [],
+    "verification": [
+      "Cameras activate on TrackMan home screen."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "camera offline",
+      "no video",
+      "swing camera"
+    ]
+  },
+  {
+    "id": "projector-001",
+    "category": "Display",
+    "problem_title": "Projector screen is blank",
+    "symptoms": [
+      "Big screen black",
+      "Projector not showing image",
+      "Small monitor works but projector does not"
+    ],
+    "root_cause": "Projector powered off or timed out",
+    "steps_to_fix": [
+      "Locate white Panasonic remote.",
+      "Point at projector.",
+      "Press red power button.",
+      "Wait for projector to turn on."
+    ],
+    "warnings": [],
+    "verification": [
+      "Projector displays Windows or TrackMan."
+    ],
+    "related_issues": ["display-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "30 seconds",
+    "member_safe": true,
+    "keywords": [
+      "projector off",
+      "blank screen",
+      "no picture",
+      "projector power"
+    ]
+  },
+  {
+    "id": "display-002",
+    "category": "Display",
+    "problem_title": "Projector shows Windows desktop but not TrackMan",
+    "symptoms": [
+      "Projector displays Windows desktop only",
+      "TrackMan window missing from projector",
+      "Game appears only on wall monitor"
+    ],
+    "root_cause": "TrackMan window opened on wrong display or minimized off-screen",
+    "steps_to_fix": [
+      "Press the Windows key to reveal open windows.",
+      "Hover over the TrackMan icon on the taskbar.",
+      "Right-click the TrackMan preview window and select 'Move'.",
+      "Use arrow keys to bring the window back into view.",
+      "Return to TrackMan home screen → Advanced Settings → Extended Displays.",
+      "Ensure Projector and TPS are assigned to Screen 1."
+    ],
+    "warnings": [
+      "Do not change Windows display settings."
+    ],
+    "verification": [
+      "TrackMan window appears on projector.",
+      "Wall monitor shows extended data only."
+    ],
+    "related_issues": ["display-001", "projector-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "desktop only",
+      "TrackMan missing",
+      "wrong screen",
+      "window off-screen"
+    ]
+  },
+  {
+    "id": "connection-003",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan logo stays orange after reboot",
+    "symptoms": [
+      "TrackMan logo orange",
+      "Unit detected but not ready",
+      "Calibration screen does not appear"
+    ],
+    "root_cause": "TrackMan unit is powered on but not level or not facing the hitting area",
+    "steps_to_fix": [
+      "Check that the TrackMan unit is placed in its marked position.",
+      "Ensure the front of the unit is facing the hitting mat.",
+      "Verify that the unit is level and not tilted.",
+      "Restart TrackMan software.",
+      "If still orange, perform a hard restart of the unit."
+    ],
+    "warnings": [],
+    "verification": [
+      "TrackMan logo turns green.",
+      "AutoTarget calibration appears."
+    ],
+    "related_issues": ["connection-001", "connection-002"],
+    "difficulty": "Moderate",
+    "time_to_fix": "4 minutes",
+    "member_safe": true,
+    "keywords": [
+      "orange logo",
+      "unit not ready",
+      "alignment issue",
+      "TrackMan not level"
+    ]
+  },
+  {
+    "id": "display-003",
+    "category": "Display",
+    "problem_title": "Shots register but ball flight does not display",
+    "symptoms": [
+      "Shot numbers appear but no ball flight animation",
+      "Data updates but screen stays static",
+      "Ball flight missing"
+    ],
+    "root_cause": "TrackMan game window minimized or hidden behind another window",
+    "steps_to_fix": [
+      "Press Alt + Tab to cycle through open windows.",
+      "Select the TrackMan game window.",
+      "If minimized, restore the window.",
+      "Return to TrackMan home screen → Extended Displays.",
+      "Ensure game window is assigned to projector."
+    ],
+    "warnings": [],
+    "verification": [
+      "Ball flight animation appears on projector."
+    ],
+    "related_issues": ["display-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "no ball flight",
+      "animation missing",
+      "game window hidden"
+    ]
+  },
+  {
+    "id": "calibration-001",
+    "category": "Calibration",
+    "problem_title": "AutoTarget fails or calibration grid appears crooked",
+    "symptoms": [
+      "AutoTarget does not complete",
+      "Grid appears tilted or misaligned",
+      "Calibration screen loops"
+    ],
+    "root_cause": "TrackMan unit moved or hitting mat shifted out of alignment",
+    "steps_to_fix": [
+      "Check that the hitting mat is centered in its marked position.",
+      "Verify that the TrackMan unit is aligned with the center of the mat.",
+      "Ensure no objects (bags, clubs, people) are in the hitting zone.",
+      "Retry AutoTarget.",
+      "If still failing, perform a TrackMan software reboot."
+    ],
+    "warnings": [
+      "Do not rotate the TrackMan unit unless instructed."
+    ],
+    "verification": [
+      "Grid appears straight and centered.",
+      "AutoTarget completes successfully."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "autotarget fail",
+      "crooked grid",
+      "calibration issue",
+      "alignment"
+    ]
+  },
+  {
+    "id": "connection-004",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan reads only some shots",
+    "symptoms": [
+      "Some shots register, others do not",
+      "Inconsistent ball tracking",
+      "Random missed shots"
+    ],
+    "root_cause": "Obstruction in radar path or player standing too far forward/back",
+    "steps_to_fix": [
+      "Ensure player stands within the hitting zone markers.",
+      "Remove any objects between TrackMan and hitting mat.",
+      "Check that the hitting mat is not rotated.",
+      "Restart TrackMan software.",
+      "If issue persists, perform a soft reboot via TrackMan Admin."
+    ],
+    "warnings": [],
+    "verification": [
+      "All shots register consistently."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "missed shots",
+      "inconsistent tracking",
+      "radar obstruction"
+    ]
+  },
+  {
+    "id": "connection-005",
+    "category": "TrackMan Software",
+    "problem_title": "TrackMan Admin page won't load",
+    "symptoms": [
+      "Browser shows blank page",
+      "Admin page stuck loading",
+      "Cannot access reboot option"
+    ],
+    "root_cause": "Local TrackMan service not running or browser cached an error",
+    "steps_to_fix": [
+      "Close all browser windows.",
+      "Reopen TrackMan Admin from desktop folder.",
+      "If still blank, restart the TrackMan software.",
+      "If still failing, restart the PC.",
+      "After reboot, reopen TrackMan Admin."
+    ],
+    "warnings": [],
+    "verification": [
+      "Admin page loads normally.",
+      "Reboot button visible."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "admin page blank",
+      "cannot load admin",
+      "TrackMan admin error"
+    ]
+  },
+  {
+    "id": "projector-002",
+    "category": "Display",
+    "problem_title": "Projector turns off during play",
+    "symptoms": [
+      "Projector shuts off suddenly",
+      "Image disappears mid-round",
+      "Projector fan running loudly before shutdown"
+    ],
+    "root_cause": "Projector overheated or auto-sleep activated",
+    "steps_to_fix": [
+      "Wait 30 seconds for projector to cool.",
+      "Press power button on Panasonic remote.",
+      "Ensure projector vents are not blocked.",
+      "If it shuts off again, notify staff."
+    ],
+    "warnings": [
+      "Do not attempt to access projector housing."
+    ],
+    "verification": [
+      "Projector stays on for several minutes without shutting down."
+    ],
+    "related_issues": ["projector-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "projector overheating",
+      "auto sleep",
+      "projector shuts off"
+    ]
+  },
+  {
+    "id": "software-001",
+    "category": "TrackMan Software",
+    "problem_title": "TrackMan freezes on home screen",
+    "symptoms": [
+      "Software loads but becomes unresponsive",
+      "Buttons do not respond",
+      "Mouse moves but nothing clicks"
+    ],
+    "root_cause": "Background TrackMan processes stuck from previous session",
+    "steps_to_fix": [
+      "Close TrackMan software.",
+      "Press Ctrl + Shift + Esc to open Task Manager.",
+      "End any TrackMan-related processes.",
+      "Reopen TrackMan software.",
+      "If still frozen, restart the PC."
+    ],
+    "warnings": [],
+    "verification": [
+      "Home screen responds normally.",
+      "Menus open without delay."
+    ],
+    "related_issues": ["display-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "4 minutes",
+    "member_safe": true,
+    "keywords": [
+      "software freeze",
+      "TrackMan stuck",
+      "home screen frozen"
+    ]
+  },
+   {
+    "id": "connection-006",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan blinking green but not connecting",
+    "symptoms": [
+      "Green light blinking continuously",
+      "Software stuck on 'Searching for unit'",
+      "Calibration screen never appears"
+    ],
+    "root_cause": "TrackMan unit booting slowly or stuck in startup loop",
+    "steps_to_fix": [
+      "Wait 30 seconds for the unit to finish booting.",
+      "If still blinking, perform a soft reboot via TrackMan Admin.",
+      "If still blinking, perform a hard restart of the unit."
+    ],
+    "warnings": [],
+    "verification": [
+      "Green light becomes solid.",
+      "Unit appears in TrackMan software."
+    ],
+    "related_issues": ["connection-002"],
+    "difficulty": "Easy",
+    "time_to_fix": "4 minutes",
+    "member_safe": true,
+    "keywords": [
+      "blinking green",
+      "unit stuck",
+      "boot loop"
+    ]
+  },
+  {
+    "id": "software-002",
+    "category": "TrackMan Software",
+    "problem_title": "TrackMan opens to a black screen",
+    "symptoms": [
+      "Software window is black",
+      "No menus or buttons visible",
+      "Audio may still play"
+    ],
+    "root_cause": "TrackMan window opened on wrong display or minimized off-screen",
+    "steps_to_fix": [
+      "Press Alt + Enter to toggle windowed mode.",
+      "Press Alt + Tab to cycle through windows.",
+      "Return to home screen → Extended Displays.",
+      "Ensure projector is assigned to Screen 1."
+    ],
+    "warnings": [],
+    "verification": [
+      "TrackMan interface appears normally."
+    ],
+    "related_issues": ["display-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "black screen",
+      "TrackMan blank",
+      "no display"
+    ]
+  },
+  {
+    "id": "display-004",
+    "category": "Display",
+    "problem_title": "Wall monitor shows TrackMan but projector shows desktop",
+    "symptoms": [
+      "TrackMan only on small monitor",
+      "Projector stuck on Windows desktop",
+      "Game not visible on big screen"
+    ],
+    "root_cause": "TrackMan assigned to wrong display in Extended Displays",
+    "steps_to_fix": [
+      "Return to TrackMan home screen.",
+      "Open Advanced Settings → Extended Displays.",
+      "Assign Projector and TPS to Screen 1.",
+      "Save settings."
+    ],
+    "warnings": [],
+    "verification": [
+      "TrackMan appears on projector."
+    ],
+    "related_issues": ["display-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "wrong display",
+      "projector desktop",
+      "TrackMan small screen"
+    ]
+  },
+  {
+    "id": "software-003",
+    "category": "TrackMan Software",
+    "problem_title": "TrackMan freezes while loading a course",
+    "symptoms": [
+      "Loading bar stuck",
+      "Software unresponsive",
+      "Course never loads"
+    ],
+    "root_cause": "Background TrackMan processes stuck from previous session",
+    "steps_to_fix": [
+      "Close TrackMan.",
+      "Open Task Manager → end all TrackMan processes.",
+      "Restart TrackMan.",
+      "If still stuck, restart the PC."
+    ],
+    "warnings": [],
+    "verification": [
+      "Course loads normally."
+    ],
+    "related_issues": ["software-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "4 minutes",
+    "member_safe": true,
+    "keywords": [
+      "loading freeze",
+      "course stuck",
+      "TrackMan loading"
+    ]
+  },
+  {
+    "id": "connection-007",
+    "category": "TrackMan Connection",
+    "problem_title": "Shots register in practice but not in virtual golf",
+    "symptoms": [
+      "Practice mode works",
+      "Virtual golf does not register shots",
+      "Ball flight missing only in game mode"
+    ],
+    "root_cause": "Game window not active or hidden behind another window",
+    "steps_to_fix": [
+      "Press Alt + Tab to bring game window forward.",
+      "Ensure projector is assigned to Screen 1.",
+      "Restart the virtual round.",
+      "If still failing, restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shots register in virtual golf."
+    ],
+    "related_issues": ["display-003"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "practice works",
+      "game no shots",
+      "virtual golf issue"
+    ]
+  },
+  {
+    "id": "connection-008",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan not detected after Windows update",
+    "symptoms": [
+      "Unit missing after reboot",
+      "TrackMan logo red or searching",
+      "Admin page shows no device"
+    ],
+    "root_cause": "Windows update interrupted TrackMan services",
+    "steps_to_fix": [
+      "Restart the PC.",
+      "Open TrackMan Admin → Reboot unit.",
+      "If still missing, perform a hard restart of the unit."
+    ],
+    "warnings": [],
+    "verification": [
+      "Unit appears in TrackMan software."
+    ],
+    "related_issues": ["connection-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "5 minutes",
+    "member_safe": true,
+    "keywords": [
+      "windows update",
+      "unit missing",
+      "TrackMan not found"
+    ]
+  },
+  {
+    "id": "environment-001",
+    "category": "Environment",
+    "problem_title": "TrackMan shows 'Low Light' warning",
+    "symptoms": [
+      "Low light message",
+      "Cameras appear dim",
+      "Ball tracking inconsistent"
+    ],
+    "root_cause": "Lighting in hitting area too low for cameras",
+    "steps_to_fix": [
+      "Turn on overhead bay lights.",
+      "Ensure no lights are pointed directly at the projector screen.",
+      "Restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Warning disappears.",
+      "Cameras activate normally."
+    ],
+    "related_issues": ["camera-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "low light",
+      "camera dim",
+      "lighting issue"
+    ]
+  },
+  {
+    "id": "environment-002",
+    "category": "Environment",
+    "problem_title": "TrackMan shows 'Too Much Light' warning",
+    "symptoms": [
+      "Bright glare on screen",
+      "Cameras washed out",
+      "Ball not detected"
+    ],
+    "root_cause": "Direct sunlight or bright overhead lights interfering with sensors",
+    "steps_to_fix": [
+      "Close blinds or curtains.",
+      "Turn off bright overhead lights.",
+      "Restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Warning disappears.",
+      "Shots register normally."
+    ],
+    "related_issues": ["environment-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "too much light",
+      "glare",
+      "camera overexposed"
+    ]
+  },
+  {
+    "id": "environment-003",
+    "category": "Environment",
+    "problem_title": "TrackMan unit moved accidentally",
+    "symptoms": [
+      "Shots inconsistent",
+      "Calibration fails",
+      "Distances incorrect"
+    ],
+    "root_cause": "Unit bumped or shifted out of alignment",
+    "steps_to_fix": [
+      "Place unit back on its marked position.",
+      "Ensure it faces the hitting mat directly.",
+      "Run AutoTarget calibration."
+    ],
+    "warnings": [
+      "Do not rotate the unit unless instructed."
+    ],
+    "verification": [
+      "Calibration completes successfully."
+    ],
+    "related_issues": ["calibration-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "unit moved",
+      "alignment",
+      "TrackMan bumped"
+    ]
+  },
+  {
+    "id": "connection-009",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan shows 'Ball Not Detected'",
+    "symptoms": [
+      "No ball flight",
+      "Shot not registering",
+      "Ball detection error"
+    ],
+    "root_cause": "Ball placed outside hitting zone or mat rotated",
+    "steps_to_fix": [
+      "Place ball on the hitting dot or marked area.",
+      "Ensure mat is not rotated.",
+      "Remove any objects blocking radar path."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shots register normally."
+    ],
+    "related_issues": ["connection-004"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "ball not detected",
+      "no shot",
+      "hitting zone"
+    ]
+  },
+  {
+    "id": "connection-010",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan shows 'Club Not Detected'",
+    "symptoms": [
+      "Club data missing",
+      "Only ball data appears",
+      "Club path or face angle missing"
+    ],
+    "root_cause": "Club tracking disabled or lighting insufficient",
+    "steps_to_fix": [
+      "Ensure club tracking is enabled in settings.",
+      "Turn on bay lighting.",
+      "Restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Club data appears on next shot."
+    ],
+    "related_issues": ["environment-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "club not detected",
+      "no club data",
+      "club tracking"
+    ]
+  },
+  {
+    "id": "environment-004",
+    "category": "Environment",
+    "problem_title": "TrackMan shows 'Radar Blocked'",
+    "symptoms": [
+      "Radar blocked message",
+      "Shots not registering",
+      "Calibration fails"
+    ],
+    "root_cause": "Object blocking radar path (bag, club, person)",
+    "steps_to_fix": [
+      "Clear all objects between TrackMan and hitting mat.",
+      "Ensure no one is standing in front of the unit.",
+      "Retry AutoTarget."
+    ],
+    "warnings": [],
+    "verification": [
+      "Radar blocked message disappears."
+    ],
+    "related_issues": ["connection-004"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "radar blocked",
+      "obstruction",
+      "no shots"
+    ]
+  },
+  {
+    "id": "environment-005",
+    "category": "Environment",
+    "problem_title": "TrackMan shows 'Unit Overheating'",
+    "symptoms": [
+      "Overheating warning",
+      "Unit shuts down unexpectedly",
+      "Green light turns off"
+    ],
+    "root_cause": "Ventilation blocked or unit used for extended period",
+    "steps_to_fix": [
+      "Ensure nothing is blocking the unit's vents.",
+      "Turn off the unit for 2 minutes.",
+      "Restart the unit by extending the rear leg."
+    ],
+    "warnings": [
+      "Do not attempt to open the unit."
+    ],
+    "verification": [
+      "Warning disappears.",
+      "Unit stays powered on."
+    ],
+    "related_issues": ["connection-002"],
+    "difficulty": "Moderate",
+    "time_to_fix": "5 minutes",
+    "member_safe": true,
+    "keywords": [
+      "overheating",
+      "unit hot",
+      "TrackMan heat"
+    ]
+  },
+  {
+    "id": "network-001",
+    "category": "Network",
+    "problem_title": "TrackMan shows 'Network Error'",
+    "symptoms": [
+      "Network error message",
+      "Unable to load tournaments",
+      "Unable to sign in"
+    ],
+    "root_cause": "Temporary Wi-Fi drop or network congestion",
+    "steps_to_fix": [
+      "Wait 10 seconds for network to reconnect.",
+      "Restart TrackMan software.",
+      "If still failing, restart the PC."
+    ],
+    "warnings": [],
+    "verification": [
+      "Tournaments and login load normally."
+    ],
+    "related_issues": ["tournament-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "network error",
+      "wifi drop",
+      "connection issue"
+    ]
+  },
+  {
+    "id": "account-001",
+    "category": "Account",
+    "problem_title": "TrackMan shows 'Login Failed'",
+    "symptoms": [
+      "Unable to sign in",
+      "Login error",
+      "QR code login not working"
+    ],
+    "root_cause": "Incorrect password or TrackMan servers temporarily busy",
+    "steps_to_fix": [
+      "Retry login.",
+      "Ensure correct email/password.",
+      "Try scanning QR code again.",
+      "Restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Login successful."
+    ],
+    "related_issues": ["tournament-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "login failed",
+      "sign in error",
+      "account issue"
+    ]
+  },
+  {
+    "id": "software-004",
+    "category": "TrackMan Software",
+    "problem_title": "TrackMan shows 'Software Update Required'",
+    "symptoms": [
+      "Update required message",
+      "Cannot start round",
+      "Features unavailable"
+    ],
+    "root_cause": "TrackMan software out of date",
+    "steps_to_fix": [
+      "Restart TrackMan software.",
+      "If update prompt appears, allow update.",
+      "If update fails, restart PC and try again."
+    ],
+    "warnings": [],
+    "verification": [
+      "Software loads without update message."
+    ],
+    "related_issues": ["software-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "update required",
+      "software update",
+      "TrackMan update"
+    ]
+  },
+  {
+    "id": "camera-002",
+    "category": "Cameras",
+    "problem_title": "Camera calibration needed",
+    "symptoms": [
+      "Camera calibration message",
+      "Swing video distorted",
+      "Camera feed misaligned"
+    ],
+    "root_cause": "Camera lost calibration due to lighting or movement",
+    "steps_to_fix": [
+      "Restart the PC.",
+      "Reopen TrackMan.",
+      "Test camera feed.",
+      "If still misaligned, notify staff."
+    ],
+    "warnings": [],
+    "verification": [
+      "Camera feed appears normal."
+    ],
+    "related_issues": ["camera-001"],
+    "difficulty": "Easy",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "camera calibration",
+      "camera misaligned",
+      "swing video issue"
+    ]
+  },
+  {
+    "id": "connection-011",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan shows only club speed",
+    "symptoms": [
+      "Only club speed appears",
+      "No ball data",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball not placed in radar zone or lighting insufficient",
+    "steps_to_fix": [
+      "Place ball on hitting dot.",
+      "Turn on bay lights.",
+      "Restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Ball data appears on next shot."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "club speed only",
+      "no ball data",
+      "ball tracking"
+    ]
+  },
+  {
+    "id": "calibration-002",
+    "category": "Calibration",
+    "problem_title": "Shot distances appear too short or too long",
+    "symptoms": [
+      "Ball flight looks exaggerated",
+      "Distances are unrealistic",
+      "Spin or launch numbers seem off"
+    ],
+    "root_cause": "TrackMan unit slightly rotated or mat moved out of alignment",
+    "steps_to_fix": [
+      "Check that the hitting mat is centered in its marked position.",
+      "Verify the TrackMan unit is facing straight toward the hitting area.",
+      "Remove any objects in the radar path.",
+      "Run AutoTarget calibration again."
+    ],
+    "warnings": [],
+    "verification": [
+      "Distances return to normal.",
+      "Calibration grid appears centered."
+    ],
+    "related_issues": ["calibration-001"],
+    "difficulty": "Moderate",
+    "time_to_fix": "3 minutes",
+    "member_safe": true,
+    "keywords": [
+      "wrong distances",
+      "inaccurate numbers",
+      "ball flight wrong"
+    ]
+  },
+    {
+    "id": "connection-012",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan shows only ball speed",
+    "symptoms": [
+      "Ball speed appears but no launch angle",
+      "Spin numbers missing",
+      "Partial ball data only"
+    ],
+    "root_cause": "Ball placed too close or too far from radar detection zone",
+    "steps_to_fix": [
+      "Place ball directly on the hitting dot.",
+      "Ensure mat is centered.",
+      "Remove any objects near the ball.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Launch and spin numbers appear."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "1 minute",
+    "member_safe": true,
+    "keywords": [
+      "ball speed only",
+      "missing launch",
+      "missing spin"
+    ]
+  },
+  {
+    "id": "environment-006",
+    "category": "Environment",
+    "problem_title": "TrackMan shows 'Unit Tilted' warning",
+    "symptoms": [
+      "Tilt warning",
+      "Calibration fails",
+      "Shots inconsistent"
+    ],
+    "root_cause": "TrackMan unit bumped or placed on uneven surface",
+    "steps_to_fix": [
+      "Ensure unit is on flat ground.",
+      "Check that all legs are fully extended.",
+      "Reposition unit on its marked spot.",
+      "Run AutoTarget."
+    ],
+    "warnings": [],
+    "verification": [
+      "Tilt warning disappears."
+    ],
+    "related_issues": ["environment-003"],
+    "difficulty": "Moderate",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "unit tilted",
+      "tilt warning",
+      "alignment issue"
+    ]
+  },
+  {
+    "id": "connection-013",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan shows 'Ball Too Close'",
+    "symptoms": [
+      "Ball too close message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball placed too close to TrackMan radar",
+    "steps_to_fix": [
+      "Move ball back to hitting dot.",
+      "Ensure mat is centered.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "30 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball too close",
+      "no shot",
+      "radar distance"
+    ]
+  },
+  {
+    "id": "connection-014",
+    "category": "TrackMan Connection",
+    "problem_title": "TrackMan shows 'Ball Too Far'",
+    "symptoms": [
+      "Ball too far message",
+      "No shot detection",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball placed outside radar detection range",
+    "steps_to_fix": [
+      "Place ball on hitting dot.",
+      "Ensure mat is not moved forward.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "30 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball too far",
+      "no shot",
+      "radar distance"
+    ]
+  },
+  {
+    "id": "connection-015",
+    "category": "TrackMan Connection",
+    "problem_title": "Club path unavailable",
+    "symptoms": [
+      "Club path missing",
+      "Face angle missing",
+      "Club data incomplete"
+    ],
+    "root_cause": "Club tracking disabled or lighting insufficient",
+    "steps_to_fix": [
+      "Turn on bay lighting.",
+      "Ensure club tracking is enabled in settings.",
+      "Restart TrackMan software."
+    ],
+    "warnings": [],
+    "verification": [
+      "Club path appears on next shot."
+    ],
+    "related_issues": ["connection-010"],
+    "difficulty": "Easy",
+    "time_to_fix": "2 minutes",
+    "member_safe": true,
+    "keywords": [
+      "club path missing",
+      "no club data",
+      "club tracking"
+    ]
+  },
+  {
+    "id": "connection-016",
+    "category": "TrackMan Connection",
+    "problem_title": "Ball speed too low",
+    "symptoms": [
+      "Ball speed too low message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Practice swing or extremely slow shot not detected",
+    "steps_to_fix": [
+      "Hit a normal shot.",
+      "Ensure ball is placed on hitting dot.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Normal shot registers."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "10 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball speed low",
+      "no shot",
+      "practice swing"
+    ]
+  },
+  {
+    "id": "connection-017",
+    "category": "TrackMan Connection",
+    "problem_title": "Club speed too low",
+    "symptoms": [
+      "Club speed too low message",
+      "Club data missing",
+      "Practice swings not detected"
+    ],
+    "root_cause": "Swing too slow for club tracking",
+    "steps_to_fix": [
+      "Take a normal swing.",
+      "Ensure lighting is adequate.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Club data appears on next shot."
+    ],
+    "related_issues": ["connection-010"],
+    "difficulty": "Easy",
+    "time_to_fix": "10 seconds",
+    "member_safe": true,
+    "keywords": [
+      "club speed low",
+      "no club data",
+      "slow swing"
+    ]
+  },
+  {
+    "id": "connection-018",
+    "category": "TrackMan Connection",
+    "problem_title": "Ball not in hitting zone",
+    "symptoms": [
+      "Ball not in zone message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball placed outside designated hitting area",
+    "steps_to_fix": [
+      "Place ball on hitting dot.",
+      "Ensure mat is centered.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "30 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball not in zone",
+      "no shot",
+      "hitting area"
+    ]
+  },
+  {
+    "id": "connection-019",
+    "category": "TrackMan Connection",
+    "problem_title": "Club not in hitting zone",
+    "symptoms": [
+      "Club not in zone message",
+      "Club data missing",
+      "Swing not detected"
+    ],
+    "root_cause": "Player standing too far forward or backward",
+    "steps_to_fix": [
+      "Stand with feet centered on hitting mat.",
+      "Ensure club passes through hitting zone.",
+      "Retry swing."
+    ],
+    "warnings": [],
+    "verification": [
+      "Club data appears."
+    ],
+    "related_issues": ["connection-010"],
+    "difficulty": "Easy",
+    "time_to_fix": "30 seconds",
+    "member_safe": true,
+    "keywords": [
+      "club not in zone",
+      "no club data",
+      "stance issue"
+    ]
+  },
+  {
+    "id": "connection-020",
+    "category": "TrackMan Connection",
+    "problem_title": "Ball too high",
+    "symptoms": [
+      "Ball too high message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball teed too high for radar detection",
+    "steps_to_fix": [
+      "Lower the tee height.",
+      "Place ball on hitting dot.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "20 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball too high",
+      "tee height",
+      "no shot"
+    ]
+  },
+  {
+    "id": "connection-021",
+    "category": "TrackMan Connection",
+    "problem_title": "Ball too low",
+    "symptoms": [
+      "Ball too low message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball placed on worn or depressed area of mat",
+    "steps_to_fix": [
+      "Move ball to hitting dot.",
+      "Ensure mat is flat.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "20 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball too low",
+      "mat worn",
+      "no shot"
+    ]
+  },
+  {
+    "id": "connection-022",
+    "category": "TrackMan Connection",
+    "problem_title": "Club too high",
+    "symptoms": [
+      "Club too high message",
+      "Club data missing",
+      "Swing not detected"
+    ],
+    "root_cause": "Player swinging above camera detection zone",
+    "steps_to_fix": [
+      "Ensure swing path passes through hitting zone.",
+      "Stand centered on mat.",
+      "Retry swing."
+    ],
+    "warnings": [],
+    "verification": [
+      "Club data appears."
+    ],
+    "related_issues": ["connection-010"],
+    "difficulty": "Easy",
+    "time_to_fix": "20 seconds",
+    "member_safe": true,
+    "keywords": [
+      "club too high",
+      "no club data",
+      "swing height"
+    ]
+  },
+  {
+    "id": "connection-023",
+    "category": "TrackMan Connection",
+    "problem_title": "Club too low",
+    "symptoms": [
+      "Club too low message",
+      "Club data missing",
+      "Swing not detected"
+    ],
+    "root_cause": "Player swinging below camera detection zone",
+    "steps_to_fix": [
+      "Ensure club passes through hitting zone.",
+      "Stand centered on mat.",
+      "Retry swing."
+    ],
+    "warnings": [],
+    "verification": [
+      "Club data appears."
+    ],
+    "related_issues": ["connection-010"],
+    "difficulty": "Easy",
+    "time_to_fix": "20 seconds",
+    "member_safe": true,
+    "keywords": [
+      "club too low",
+      "no club data",
+      "swing height"
+    ]
+  },
+  {
+    "id": "connection-024",
+    "category": "TrackMan Connection",
+    "problem_title": "Ball behind hitting zone",
+    "symptoms": [
+      "Ball behind zone message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball placed too far back on mat",
+    "steps_to_fix": [
+      "Move ball to hitting dot.",
+      "Ensure mat is centered.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "20 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball behind zone",
+      "no shot",
+      "hitting zone"
+    ]
+  },
+  {
+    "id": "connection-025",
+    "category": "TrackMan Connection",
+    "problem_title": "Ball ahead of hitting zone",
+    "symptoms": [
+      "Ball ahead of zone message",
+      "Shot not detected",
+      "Ball flight missing"
+    ],
+    "root_cause": "Ball placed too far forward on mat",
+    "steps_to_fix": [
+      "Move ball to hitting dot.",
+      "Ensure mat is centered.",
+      "Retry shot."
+    ],
+    "warnings": [],
+    "verification": [
+      "Shot registers normally."
+    ],
+    "related_issues": ["connection-009"],
+    "difficulty": "Easy",
+    "time_to_fix": "20 seconds",
+    "member_safe": true,
+    "keywords": [
+      "ball ahead zone",
+      "no shot",
+      "hitting zone"
+    ]
+  }
+]
+
