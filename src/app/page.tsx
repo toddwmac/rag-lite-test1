@@ -2,144 +2,175 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useState, useRef } from 'react';
+import { Send, Bot, User, FileText, Loader2, Sparkles, Sidebar as SidebarIcon } from 'lucide-react';
 
 export default function Chat() {
-  // Use a local state for the input to avoid "undefined" or "read-only" hook issues
   const [localInput, setLocalInput] = useState('');
   const [mounted, setMounted] = useState(false);
+  const [files, setFiles] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Initialize the hook
-  const chat = useChat({
+  const { 
+    messages, 
+    append, 
+    isLoading, 
+    error 
+  } = useChat({
     onError: (err) => {
-      console.error('CRITICAL_SDK_ERROR:', err);
+      console.error('AI_SDK_ERROR:', err);
     }
   });
 
-  // Safe destructuring with fallbacks
-  const messages = chat.messages || [];
-  const isLoading = chat.isLoading || false;
-  const error = chat.error;
-  const append = chat.append;
-  const handleSubmit = chat.handleSubmit;
-
   useEffect(() => {
     setMounted(true);
+    // Fetch file list for the sidebar
+    fetch('/api/files')
+      .then(res => res.json())
+      .then(data => {
+        if (data.files) setFiles(data.files);
+      })
+      .catch(err => console.error('Error fetching files:', err));
   }, []);
 
-  // Auto-scroll logic for the output area
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
-  // Robust submission handler
   const onFormSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    
     const text = localInput.trim();
     if (!text || isLoading) return;
 
-    console.log('--- SUBMISSION_START ---');
-    console.log('Payload:', text);
-
     try {
-      // Priority 1: Try useChat's internal handleSubmit if it's available
-      if (typeof handleSubmit === 'function' && e) {
-        console.log('Mode: handleSubmit');
-        // We temporarily sync the hook's input state so handleSubmit can pick it up
-        if (typeof chat.setInput === 'function') chat.setInput(text);
-        
-        // Use a timeout to let state settle if needed, but standard handleSubmit is usually fine
-        handleSubmit(e);
-        setLocalInput('');
-      } 
-      // Priority 2: Fallback to direct append() which is often more stable
-      else if (typeof append === 'function') {
-        console.log('Mode: append');
-        await append({
-          content: text,
-          role: 'user',
-        });
-        setLocalInput('');
-      } 
-      else {
-        console.error('FATAL: No submission method (handleSubmit or append) found in useChat');
-      }
+      await append({ content: text, role: 'user' });
+      setLocalInput('');
     } catch (err) {
-      console.error('SUBMISSION_FAILED:', err);
+      console.error('Submission failed', err);
     }
   };
 
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col h-screen bg-white text-black font-mono overflow-hidden selection:bg-black selection:text-white">
+    <div className="flex h-screen bg-[#fcfcfd] text-slate-900 font-sans selection:bg-blue-100">
       
-      {/* 1. DATA_OUTPUT (Top 40%) */}
-      <div 
-        className="h-[40vh] overflow-y-auto border-b-4 border-black bg-gray-50 p-6 md:p-12 scroll-smooth"
-        ref={scrollRef}
-      >
-        <div className="max-w-3xl mx-auto space-y-12">
-          {messages.length === 0 ? (
-            <div className="py-20 text-center opacity-20">
-              <div className="text-4xl font-black italic tracking-tighter">STREAMS_INACTIVE</div>
-              <div className="text-[10px] font-bold mt-2 uppercase tracking-[0.4em]">Initialize system with query</div>
-            </div>
-          ) : (
-            <div className="space-y-16">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
-                  <div className="text-[10px] font-black mb-2 opacity-40 uppercase tracking-widest">
-                    {m.role === 'user' ? '[USER_TX]' : '[CLAUDE_RX]'}
-                  </div>
-                  <div className={`p-6 text-xl md:text-2xl border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-[85%] ${
-                    m.role === 'user' ? 'bg-black text-white font-bold' : 'bg-white text-black'
-                  }`}>
-                    <div className="whitespace-pre-wrap">{m.content}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {isLoading && (
-            <div className="flex items-center gap-6 py-8">
-              <div className="flex gap-2">
-                <div className="w-4 h-4 bg-black animate-ping"></div>
-                <div className="w-4 h-4 bg-black animate-ping [animation-delay:0.2s]"></div>
-              </div>
-              <span className="text-sm font-black uppercase tracking-[0.5em]">Processing...</span>
-            </div>
-          )}
-
-          {error && (
-            <div className="bg-red-600 text-white p-6 border-4 border-black font-black uppercase shadow-[10px_10px_0px_0px_rgba(220,38,38,0.3)]">
-              ERROR_DETECTED: {error.message}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* 2. COMMAND_CENTRE (Middle 40%) */}
-      <div className="h-[40vh] flex flex-col items-center justify-center px-6 bg-white border-b-4 border-black relative">
-        <div className="w-full max-w-3xl">
-          <div className="mb-6 flex justify-center">
-             <span className="bg-black text-white px-4 py-1 text-[10px] font-black uppercase tracking-[0.5em]">Input Console</span>
+      {/* 1. SIDEBAR (Fixed Knowledge Base) */}
+      <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col shadow-sm">
+        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+          <div className="flex items-center gap-2 font-bold text-slate-800 tracking-tight">
+            <div className="bg-blue-600 p-1 rounded text-white"><Bot size={16} /></div>
+            RAG-Lite
           </div>
-          
-          <form 
-            onSubmit={onFormSubmit}
-            className="flex flex-col border-[8px] border-black bg-white shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 transition-all"
-          >
-            <div className="flex flex-col md:flex-row">
+        </div>
+        
+        <div className="flex-1 overflow-y-auto p-4">
+          <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <FileText size={12} /> Documents
+          </h3>
+          <div className="space-y-1">
+            {files.length === 0 ? (
+              <p className="text-xs text-slate-400 italic px-2">No documents found</p>
+            ) : (
+              files.map(file => (
+                <div key={file} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-colors cursor-default truncate" title={file}>
+                  <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                  {file}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+        
+        <div className="p-4 bg-slate-50 border-t border-slate-100">
+          <div className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">Connected: Claude 3 Haiku</div>
+        </div>
+      </aside>
+
+      {/* 2. MAIN CONTENT AREA */}
+      <main className="flex-1 flex flex-col relative min-w-0">
+        
+        {/* TOP OUTPUT ZONE */}
+        <div 
+          className="flex-1 overflow-y-auto px-6 md:px-12 py-10 scroll-smooth custom-scrollbar"
+          ref={scrollRef}
+        >
+          <div className="max-w-4xl mx-auto">
+            {messages.length === 0 ? (
+              <div className="h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
+                <div className="bg-slate-50 p-4 rounded-full text-slate-300">
+                  <Sparkles size={32} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-slate-800">Research Workspace</h2>
+                  <p className="text-sm text-slate-500 max-w-sm mt-1">Ask questions about your local documents. Claude will analyze the context and provide insights.</p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-10 pb-20">
+                {messages.map((m, i) => (
+                  <div key={i} className={`flex gap-4 md:gap-6 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    {m.role !== 'user' && (
+                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0 mt-1">
+                        <Bot size={18} />
+                      </div>
+                    )}
+                    
+                    <div className={`max-w-[85%] space-y-1.5 ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
+                      <div className={`inline-block px-5 py-3.5 rounded-2xl text-[14px] leading-relaxed shadow-sm ${
+                        m.role === 'user' 
+                          ? 'bg-blue-600 text-white rounded-tr-none' 
+                          : 'bg-white text-slate-800 border border-slate-100 rounded-tl-none'
+                      }`}>
+                        <div className="whitespace-pre-wrap">{m.content}</div>
+                      </div>
+                      <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest px-1">
+                        {m.role === 'user' ? 'You' : 'Claude'}
+                      </div>
+                    </div>
+
+                    {m.role === 'user' && (
+                      <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-white flex-shrink-0 mt-1">
+                        <User size={18} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+                
+                {isLoading && (
+                  <div className="flex gap-4 animate-pulse">
+                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300">
+                      <Loader2 size={18} className="animate-spin" />
+                    </div>
+                    <div className="bg-white border border-slate-50 px-5 py-3.5 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" />
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                      <span className="text-xs text-slate-400 font-medium ml-1">Thinking...</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {error && (
+              <div className="max-w-md mx-auto mb-8 p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 text-red-800 text-xs font-medium">
+                <div className="bg-red-500 text-white p-1 rounded-full"><Bot size={12} /></div>
+                System error: {error.message}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* BOTTOM INPUT ZONE */}
+        <div className="p-6 md:p-10 bg-white border-t border-slate-100">
+          <div className="max-w-3xl mx-auto relative group">
+            <form onSubmit={onFormSubmit} className="relative flex items-center">
               <input
                 autoFocus
-                className="flex-1 p-8 text-2xl md:text-4xl font-black outline-none bg-transparent placeholder:text-gray-200"
+                className="w-full pl-6 pr-14 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 outline-none transition-all text-[15px] placeholder:text-slate-400"
                 value={localInput}
-                placeholder="PROMPT_HERE"
+                placeholder="Ask a question about your documents..."
                 onChange={(e) => setLocalInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
@@ -150,41 +181,32 @@ export default function Chat() {
               />
               <button
                 type="submit"
-                className="bg-black text-white px-12 py-8 font-black text-3xl hover:bg-gray-800 transition-all disabled:bg-gray-200 disabled:text-gray-400 border-l-0 md:border-l-[8px] border-black"
                 disabled={isLoading || !localInput.trim()}
+                className="absolute right-3 p-2.5 bg-blue-600 text-white rounded-xl disabled:bg-slate-200 disabled:text-slate-400 hover:bg-blue-700 transition-all shadow-md active:scale-95"
               >
-                SUBMIT
+                {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
               </button>
+            </form>
+            <div className="flex justify-center mt-3 text-[10px] font-bold text-slate-300 uppercase tracking-widest gap-4">
+               <span>RAG-Lite Protocol</span>
+               <span>•</span>
+               <span>Local Data Verified</span>
             </div>
-          </form>
-
-          <div className="mt-12 flex justify-between text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
-            <div>NETWORK: 127.0.0.1</div>
-            <div>AUTH: CLAUDE_HAIKU_STABLE</div>
-            <div>STATUS: LNK_READY</div>
           </div>
         </div>
-      </div>
-
-      {/* 3. BUFFER_ZONE (Bottom 20%) */}
-      <div className="h-[20vh] bg-gray-100 flex items-center justify-center px-10">
-        <div className="w-full max-w-5xl opacity-10 font-black text-[9px] uppercase tracking-[0.8em] text-center border-t border-black pt-8">
-           Systems_Stable // Buffers_Clear // Encryption_High // RAG-Lite_OS
-        </div>
-      </div>
+      </main>
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { 
           margin: 0; 
           padding: 0; 
-          font-family: 'Space Mono', monospace !important; 
-          background: white;
-          overflow: hidden;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          background: #fcfcfd;
         }
-        ::-webkit-scrollbar { width: 14px; }
-        ::-webkit-scrollbar-track { background: #fff; border-left: 4px solid #000; }
-        ::-webkit-scrollbar-thumb { background: #000; border: 3px solid #fff; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
       `}</style>
     </div>
   );
