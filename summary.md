@@ -1,29 +1,23 @@
-# Project Summary: RAG-Lite Notebook
+# Project Summary: Applied AI Labs: SmartDocs
 **Date**: January 31, 2026
-**Status**: LIVE & DEPLOYED (Vercel)
+**Status**: LIVE & FULLY FEATURED
 
-## 1. Environment Configuration
-- **OS**: Windows 13 (win32)
-- **Runtime**: Next.js 16.1.6 (Turbopack)
-- **Deployment**: Vercel (Production)
-- **AI Stack**: 
-  - `ai`: 4.1.20
-  - `@ai-sdk/react`: 1.1.20
-  - `@ai-sdk/anthropic`: 1.1.10
+## 1. Technical Architecture
+- **Framework**: Next.js 16 (Turbopack)
+- **AI Model**: Claude 3 Haiku (Optimized for speed/cost)
+- **Pinned SDKs**: `ai@4.1.20`, `@ai-sdk/react@1.1.20`
+- **Hosting**: Vercel (CI/CD via GitHub)
 
-## 2. Core Implementation
-### A. Anthropic Model Access
-- **Model**: `claude-3-haiku-20240307`
-- **Logic**: Use Haiku for optimal speed and compatibility with Tier 0/1 API keys.
+## 2. Intelligence Features
+- **Hybrid RAG**: Prioritizes local documents but uses general knowledge when the knowledgebase is silent.
+- **Selective Context**: Interactive sidebar allows users to toggle specific documents on/off for every query.
+- **Anonymous Citations**: The AI refers to sources collectively as "the knowledgebase" to maintain a professional flow.
+- **Persona Tuning**: A live "Command Console" allowing real-time adjustment of AI tone and rules without code changes.
 
-### B. UI/UX Architecture
-- **Design**: Professional "Notebook" layout with modern typography (Inter).
-- **Features**: 
-  - Sidebar with document selection/filtering logic.
-  - Wide-screen responsive layout.
-  - Compact, floating input field.
+## 3. Persistent State
+- **Persona Storage**: Custom instructions are saved to the browser's `localStorage`.
+- **Default Management**: Supports "Save as Default" and "Load Default" for consistent testing.
 
-## 3. Deployment Fixes
-- **TypeScript**: Added type casts (`as any`) to resolve `LanguageModelV1` conflicts during the Vercel production build process.
-- **ESLint**: Synchronized `eslint-config-next` with the Next.js version (16.1.6) to pass strict Vercel CI checks.
-
+## 4. Maintenance & Archiving
+- **Cleanup**: `node_modules` can be safely deleted for archiving; restore via `npm install`.
+- **Deployment**: Any "Push" to the main branch triggers an automatic Vercel build.

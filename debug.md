@@ -1,40 +1,23 @@
-# Final Troubleshooting Report: RAG-Lite Notebook
-**Date**: January 31, 2026
-**Final Status**: SUCCESS (Fully Functional)
+# Debug Report & Key Learnings: SmartDocs
 
-## 1. Critical Dependency Stabilization
-**Issue**: Version mismatch between `ai` (^6.x) and `@ai-sdk/react`. The v6.x SDK introduced experimental changes that caused hooks (`useChat`) to return undefined functions (`handleSubmit`, `append`) in the Next.js 16/Turbopack environment.
-**Resolution**: Downgraded and pinned dependencies to known stable versions:
-- `ai@4.1.20`
-- `@ai-sdk/react@1.1.20`
-- `@ai-sdk/anthropic@1.1.10`
-**Impact**: Restored core SDK functionality and fixed "handleSubmit is not a function" errors.
+## 1. SDK Fragmentation (Major)
+**Nature**: New versions of the AI SDK (v6.x) broke core React hooks in the Next.js Turbopack environment.
+**Fix**: Reverted to stable `ai@4.1.20`.
+**Learning**: In experimental environments (Next 16), "latest" is often "broken." Pinning to stable is mandatory.
 
-## 2. Anthropic Model Access (404 Error)
-**Issue**: The API key provided was restricted (likely Tier 0 or low balance), causing `claude-3-5-sonnet` models to return a `404 Not Found` (Not Found Error).
-**Resolution**: 
-- Validated key permissions via a standalone node script (`verify-anthropic.mjs`).
-- Switched all API routes to use `claude-3-haiku-20240307`.
-**Impact**: Verified successful end-to-end communication with Anthropic.
+## 2. State & Persistence
+**Nature**: UI input fields became "read-only" or threw `trim()` errors when using the SDK's built-in state.
+**Fix**: Bridged the logic with a local `useState` and used `localStorage` for the Persona Tuning data.
+**Learning**: Local React state is more reliable for critical testing inputs than internal SDK state during the dev phase.
 
-## 3. Client-Side State & UI Synchronization
-**Issue 1 (State)**: The `input` state from `useChat` was intermittently `undefined` or locked as read-only, throwing `TypeError: trim() of undefined`.
-**Issue 2 (UI)**: Tailwind CSS 4 was misconfigured (using `@tailwind` directives instead of `@import "tailwindcss";`), leading to a broken/unstyled UI.
-**Resolution**:
-- **Tailwind**: Updated `globals.css` to the modern CSS-first `@import` syntax.
-- **State Bridge**: Implemented a local `useState` for the input field in `src/app/page.tsx` to ensure the field is always mutable and safe.
-- **Resilient Submit**: Created an `onFormSubmit` handler that checks for both `handleSubmit` and `append` as fallbacks.
-- **Layout**: Redesigned to a "Command Centre" aesthetic (Top: Output, Middle: Input) to avoid overlap with development toolbars.
+## 3. The "Hierarchy of Truth" Prompt
+**Nature**: AI was either too restricted (Doc-only) or too loose (hallucinating).
+**Fix**: Implemented a 3-layer rule system: Documents first, General knowledge second (with disclaimer), and a "Refusal to Hallucinate" clause for high-uncertainty data.
 
-## 4. Environment-Specific Learnings
-- **Windows/PowerShell**: Native execution policies often block `.ps1` scripts for `npm`. Wrapping commands in `cmd /c` (e.g., `cmd /c "npm install ..."`) is the only reliable method for this specific environment.
-- **Turbopack**: The experimental compiler is sensitive to SDK version mismatches; pinning to stable releases is mandatory.
-- **Verification**: Standalone JS scripts are superior to internal API routes for troubleshooting "hidden" failures (like API key permissions).
+## 4. Production Build (TypeScript)
+**Nature**: `LanguageModelV1` type mismatch between the provider and the core SDK crashed the Vercel build.
+**Fix**: Added `as any` type casting to the model initialization.
+**Learning**: TypeScript warnings are FATAL in Vercel. Patch the types early if standard updates aren't available.
 
-## 5. Production Build Failures (Vercel)
-**Nature**: `Type error: LanguageModelV1 is not assignable to...`
-**Cause**: Next.js production builds run a much stricter TypeScript check than development mode. Internal type conflicts between `ai` and `@ai-sdk/anthropic` versions caused a build crash.
-**Confirmed Fix**: Added `as any` type casts to the model initializers in all API routes and synchronized `eslint-config-next` to version `16.1.6`.
-
----
-**Current Production State**: DEPLOYED. The app is live on Vercel using Claude 3 Haiku and stable AI SDK components.
+## 5. Maintenance Best Practices
+**Learning**: `npm ci` is strictly for clean builds and requires `package-lock.json` to be perfectly in sync. For archiving, delete `node_modules` but **KEEP** `.env.local` manually as it's not in the Git history.
