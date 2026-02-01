@@ -36,10 +36,16 @@ export async function getContext(selectedFiles?: string[]) {
         const content = await fs.readFile(filePath, 'utf-8');
         context += `\n--- Document: ${file} ---\n${content}\n`;
       } else if (file.endsWith('.pdf')) {
-        const pdf = (await import('pdf-parse')).default;
-        const dataBuffer = await fs.readFile(filePath);
-        const data = await pdf(dataBuffer);
-        context += `\n--- Document: ${file} (PDF) ---\n${data.text}\n`;
+        try {
+          // Use require for the subpath to avoid ESM interop issues with some bundlers
+          const pdf = require('pdf-parse/lib/pdf-parse.js');
+          const dataBuffer = await fs.readFile(filePath);
+          const data = await pdf(dataBuffer);
+          context += `\n--- Document: ${file} (PDF) ---\n${data.text}\n`;
+        } catch (pdfError: any) {
+          console.error(`PDF Parse Error for ${file}:`, pdfError.message);
+          context += `\n--- Document: ${file} (Error parsing PDF: ${pdfError.message}) ---\n`;
+        }
       }
     } catch (error) {
       console.error(`Error reading file ${file}:`, error);
